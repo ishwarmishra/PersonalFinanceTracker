@@ -8,6 +8,6 @@ package pft;
  *
  * @author ishwar
  */
-public class Expense {
+class scannner {
     
 }

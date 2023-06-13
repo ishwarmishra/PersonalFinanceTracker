@@ -17,6 +17,7 @@ public class Login {
 
         if (authenticateUser(username, password)) {
             System.out.println("Login successful! Welcome, " + username + ".");
+            
             //actions to be performed after successful login
         } else {
             System.out.println("Invalid username or password. Please try again.");
