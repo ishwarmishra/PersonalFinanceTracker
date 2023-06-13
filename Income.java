@@ -16,10 +16,7 @@ public class Income implements IncomeExpensedetails {
     private String description;
     
     public Income(){
-        id=22;
-        date=2023-2-3;
-        category_id=
-    }
+            }
  
    
     
