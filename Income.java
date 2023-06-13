@@ -3,10 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package pft;
+import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Income implements IncomeExpensedetails {
-    int id;
-    private 
+    
+    
+    private static final AtomicInteger count=new AtomicInteger(0);
+    private Date date;
+    private int category_id;
+    private float amount;
+    private String description;
+    
+    public Income(){
+        id=22;
+        date=2023-2-3;
+        category_id=
+    }
+ 
+   
     
     @Override
     public void viewDetails() {
