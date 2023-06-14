@@ -9,14 +9,15 @@ import java.util.Scanner;
 public interface IncomeExpensedetails {
     
     //for the incomeDetails class
-     public String generateUniqueId();
+    public String generateUniqueId();
+    void addIncome(String income,Date date);
+    void displayIncomeSources();
+    void showMenu();
      
-     void addIncome(String income,Date date);
      
-     void displayIncomeSources();
+   
      
-     void showMenu();
-     
+    
      
          
     

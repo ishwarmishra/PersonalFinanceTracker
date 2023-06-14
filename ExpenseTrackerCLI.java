@@ -11,7 +11,14 @@ public class ExpenseTrackerCLI {
         IncomeDetails incomeManager=new IncomeDetails();
         incomeManager.generateUniqueId();
         incomeManager.showMenu();
-        incomeManager.add();
+        
+        //create the object for the ExpenseDetails 
+        
+        ExpenseDetails expenseManager=new ExpenseDetails();
+        expenseManager.generateUniqueId();
+        expenseManager.showMenu();
+        
+        
         
         
         

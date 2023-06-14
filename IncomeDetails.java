@@ -6,7 +6,7 @@ import java.util.List;
 
 
 
-public class IncomeDetails implements IncomeExpensedetails {
+public  class IncomeDetails implements IncomeExpensedetails {
     
     private class Income {
         String source;
