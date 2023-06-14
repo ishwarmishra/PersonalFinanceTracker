@@ -6,13 +6,13 @@ import java.util.List;
 
 
 
-public  class IncomeDetails implements IncomeExpensedetails {
+public  class IncomeDetails<T> implements IncomeExpensedetails<T> {
     
     private class Income {
-        String source;
+        T source;
         Date date;
 
-        public Income(String source, Date date) {
+        public Income(T source, Date date) {
             this.source = source;
             this.date = date;
         }
@@ -42,7 +42,7 @@ public  class IncomeDetails implements IncomeExpensedetails {
     }
     
     @Override
-    public void addIncome(String income,Date date) {
+    public void addIncome(T income,Date date) {
         Income newIncome = new Income(income, date);
         incomeSources.add(newIncome);
     }
@@ -74,7 +74,7 @@ public  class IncomeDetails implements IncomeExpensedetails {
                 case 1:
                     System.out.print("Enter income source: ");
                     scanner.nextLine(); // Consume the newline character
-                    String income = scanner.nextLine();
+                    T income = (T) scanner.nextLine();
                     System.out.print("Enter date (dd/mm/yyyy): ");
                     String dateInput = scanner.nextLine();
                     Date date = parseDate(dateInput);

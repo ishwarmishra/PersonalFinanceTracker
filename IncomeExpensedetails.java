@@ -5,12 +5,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-public interface IncomeExpensedetails {
+public interface IncomeExpensedetails<T> {
 
    
     public String generateUniqueId();
 
-    void addIncome(String income, Date date);
+    void addIncome(T income, Date date);
 
     void displayIncomeSources();
 
