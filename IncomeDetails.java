@@ -20,9 +20,10 @@ public class IncomeDetails implements IncomeExpensedetails {
     public String generateUniqueId() {
         System.out.println("Enter a unique ID: ");
         String uniqueId = scanner.nextLine();
+        // You can perform validation or manipulation on the user input if required
         return uniqueId;
     }
-    
+    //place holder method for thegeneratedUniqueId
     public void doSomething() {
         String uniqueId = generateUniqueId();
        
