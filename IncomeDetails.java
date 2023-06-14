@@ -1,19 +1,34 @@
 package pft;
 import java.util.Scanner;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.ArrayList;
+
 
 
 public class IncomeDetails implements IncomeExpensedetails {
     
     private  Scanner scanner;
+ 
+   
     
     public IncomeDetails() {
         scanner = new Scanner(System.in);
+        
     
         
     }
+    @Override
+    public String generateUniqueId() {
+        System.out.println("Enter a unique ID: ");
+        String uniqueId = scanner.nextLine();
+        return uniqueId;
+    }
+    
+    public void doSomething() {
+        String uniqueId = generateUniqueId();
+       
+    }
+    
+        
     @Override
     public void add() {
         
@@ -39,7 +54,8 @@ public class IncomeDetails implements IncomeExpensedetails {
        
 
        }
-        
+
+    
        
     }
         
