@@ -1,8 +1,10 @@
 package pft;
-import java.util.Scanner;
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 
 
@@ -20,12 +22,14 @@ public  class IncomeDetails<T> implements IncomeExpensedetails<T> {
     
     private List<Income>incomeSources;
     private  Scanner scanner;
-  
+    private SimpleDateFormat dateFormat;
+
 
     
     public IncomeDetails() {
         incomeSources = new ArrayList<>();
-        scanner = new Scanner(System.in); 
+        scanner = new Scanner(System.in);
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     }
     
     @Override
@@ -78,8 +82,12 @@ public  class IncomeDetails<T> implements IncomeExpensedetails<T> {
                     System.out.print("Enter date (dd/mm/yyyy): ");
                     String dateInput = scanner.nextLine();
                     Date date = parseDate(dateInput);
-                    addIncome(income, date);
-                    System.out.println("Income source added.");
+                    if (date != null) {
+                        addIncome(income, date);
+                        System.out.println("Income source added.");
+                    } else {
+                        System.out.println("Invalid date format. Please try again.");
+                    }
                     break;
                 case 2:
                     displayIncomeSources();
@@ -97,20 +105,19 @@ public  class IncomeDetails<T> implements IncomeExpensedetails<T> {
     }
     
         
-    private Date parseDate(String dateInput) {
-        
-        String[] parts = dateInput.split("/");
-        int day = Integer.parseInt(parts[0]);
-        int month = Integer.parseInt(parts[1]) - 1; // Month is zero-based
-        int year = Integer.parseInt(parts[2]) - 1900; // Adjust year based on Java Date class
-        return new Date(year, month, day);
-    }
+    private Date parseDate(String dateInput){
+        try {
+            return dateFormat.parse(dateInput);
+        } catch (ParseException e) {
+            return null;
+        }
 
     
-
+    }
+}
     
        
-}
+
         
             
       
