@@ -31,7 +31,7 @@ public class Login {
         // implement your authentication logic.
         
         String expectedUsername = "ishwar";
-        String expectedPassword = "ishwar";
+        String expectedPassword = "ishwar123";
 
         return username.equals(expectedUsername) && password.equals(expectedPassword);
     }

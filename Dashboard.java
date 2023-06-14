@@ -16,7 +16,7 @@ public class Dashboard {
     public static void main(String[] args) {
         String[] options = {"1- Income",
                             "2- Expense",
-                            "3- Logout",
+                            "3- exit",
                             
         };
         Scanner scanner = new Scanner(System.in);
@@ -30,7 +30,7 @@ public class Dashboard {
                     
                     case 2: expense(); break;
                     
-                    case 3: logout(); 
+                    case 3: exit(); 
                     
                 }
             }
@@ -47,8 +47,8 @@ public class Dashboard {
     private static void expense() {
         System.out.println("Welcome in Expense Details");
     }
-    private static void logout() {
-        System.out.println("Logging out");
+    private static void exit() {
+        System.out.println("You are exiting");
     }
 
     
