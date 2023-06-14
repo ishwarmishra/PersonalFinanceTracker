@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public  class ExpenseDetails implements IncomeExpensedetails{
+public  class ExpenseDetails<T> implements IncomeExpensedetails<T>{
 
     private class Income {
-        String source;
+        T source;
         Date date;
 
-        public Income(String source, Date date) {
+        public Income(T source, Date date) {
             this.source = source;
             this.date = date;
         }
@@ -43,8 +43,9 @@ public  class ExpenseDetails implements IncomeExpensedetails{
     }
     
     @Override
-    public void addIncome(String income,Date date) {
+    public void addIncome(T income,Date date) {
         Income newIncome = new Income(income, date);
+        //instantiate the object of the list(Income)
         incomeSources.add(newIncome);
     }
 
@@ -75,7 +76,7 @@ public  class ExpenseDetails implements IncomeExpensedetails{
                 case 1:
                     System.out.print("Enter Expense source: ");
                     scanner.nextLine(); // Consume the newline character
-                    String income = scanner.nextLine();
+                    T income = (T) scanner.nextLine();
                     System.out.print("Enter date (dd/mm/yyyy): ");
                     String dateInput = scanner.nextLine();
                     Date date = parseDate(dateInput);
