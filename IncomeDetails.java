@@ -1,10 +1,12 @@
 package pft;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
 
 
 
@@ -12,9 +14,9 @@ public  class IncomeDetails<T> implements IncomeExpensedetails<T> {
     
     private class Income {
         T source;
-        Date date;
+        LocalDate date;
 
-        public Income(T source, Date date) {
+        public Income(T source, LocalDate date) {
             this.source = source;
             this.date = date;
         }
@@ -22,14 +24,14 @@ public  class IncomeDetails<T> implements IncomeExpensedetails<T> {
     
     private List<Income>incomeSources;
     private  Scanner scanner;
-    private SimpleDateFormat dateFormat;
+    private DateTimeFormatter dateFormatter;
 
 
     
     public IncomeDetails() {
         incomeSources = new ArrayList<>();
         scanner = new Scanner(System.in);
-        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     }
     
     @Override
@@ -46,7 +48,7 @@ public  class IncomeDetails<T> implements IncomeExpensedetails<T> {
     }
     
     @Override
-    public void addIncome(T income,Date date) {
+    public void addIncome(T income,LocalDate date) {
         Income newIncome = new Income(income, date);
         incomeSources.add(newIncome);
     }
@@ -58,7 +60,8 @@ public  class IncomeDetails<T> implements IncomeExpensedetails<T> {
         } else {
             System.out.println("Income Sources:");
             for(Income income: incomeSources){
-                System.out.println(income.source + "-"+ income.date);
+                System.out.println(income.source + " - "+ income.date.format(dateFormatter));
+                
             }
         }
     }
@@ -81,7 +84,7 @@ public  class IncomeDetails<T> implements IncomeExpensedetails<T> {
                     T income = (T) scanner.nextLine();
                     System.out.print("Enter date (dd/mm/yyyy): ");
                     String dateInput = scanner.nextLine();
-                    Date date = parseDate(dateInput);
+                    LocalDate date = parseDate(dateInput);
                     if (date != null) {
                         addIncome(income, date);
                         System.out.println("Income source added.");
@@ -105,10 +108,10 @@ public  class IncomeDetails<T> implements IncomeExpensedetails<T> {
     }
     
         
-    private Date parseDate(String dateInput){
+    private LocalDate parseDate(String dateInput){
         try {
-            return dateFormat.parse(dateInput);
-        } catch (ParseException e) {
+            return LocalDate.parse(dateInput,dateFormatter);
+        } catch (DateTimeParseException e) {
             return null;
         }
 
