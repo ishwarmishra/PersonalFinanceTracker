@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public interface IncomeExpensedetails {
 
-    //for the incomeDetails class
+   
     public String generateUniqueId();
 
     void addIncome(String income, Date date);
