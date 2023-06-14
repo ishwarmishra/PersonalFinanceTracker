@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class IncomeDetails implements IncomeExpensedetails {
     
-    private final Scanner scanner;
+    private  Scanner scanner;
     
     public IncomeDetails() {
         scanner = new Scanner(System.in);
@@ -16,6 +16,8 @@ public class IncomeDetails implements IncomeExpensedetails {
     }
     @Override
     public void add() {
+        
+        
          
         System.out.print("Enter the amount: ");
         double amount = scanner.nextDouble();
@@ -37,6 +39,10 @@ public class IncomeDetails implements IncomeExpensedetails {
        
 
        }
+        
+       
+    }
+        
             
       
 }
