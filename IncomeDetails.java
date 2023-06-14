@@ -18,7 +18,7 @@ public class IncomeDetails implements IncomeExpensedetails {
         }
     }
     
-    private List<String>incomeSources;
+    private List<Income>incomeSources;
     private  Scanner scanner;
   
 
@@ -53,8 +53,8 @@ public class IncomeDetails implements IncomeExpensedetails {
             System.out.println("No income sources added.");
         } else {
             System.out.println("Income Sources:");
-            for(Income income: incomeSources) {
-                System.out.println(income.source + "-"+income.date);
+            for(Income income: incomeSources){
+                System.out.println(income.source + "-"+ income.date);
             }
         }
     }

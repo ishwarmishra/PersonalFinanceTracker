@@ -12,7 +12,9 @@ public interface IncomeExpensedetails {
      public String generateUniqueId();
      
      void addIncome(String income,Date date);
+     
      void displayIncomeSources();
+     
      void showMenu();
      
      
