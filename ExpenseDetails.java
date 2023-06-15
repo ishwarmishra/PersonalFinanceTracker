@@ -41,7 +41,7 @@ public  class ExpenseDetails<T> implements IncomeExpensedetails<T>{
         } else {
             System.out.println("Income Sources:");
             for (Income income : incomeSources) {
-                System.out.println(income.id + "-" +income.source + " - " + income.amount+ "-"+ income.date.format(dateFormatter));
+                System.out.println(income.id + " " +income.source + "  " + income.amount+ " "+ income.date.format(dateFormatter));
                 
 
             }
