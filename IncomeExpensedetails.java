@@ -14,9 +14,8 @@ public interface IncomeExpensedetails<T> {
  
 
     void addIncome(T income,double amount, LocalDate date);
-
     void displayIncomeSources();
-
+    void deleteIncome(int id);
     void showMenu();
 
 }

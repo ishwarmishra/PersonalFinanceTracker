@@ -47,6 +47,17 @@ public  class ExpenseDetails<T> implements IncomeExpensedetails<T>{
             }
         }
     }
+    @Override
+     public void deleteIncome(int id) {
+        Income income = incomeMap.get(id);
+        if (income != null) {
+            incomeSources.remove(income);
+            incomeMap.remove(id);
+            System.out.println("Income source with ID " + id + " deleted.");
+        } else {
+            System.out.println("Income source with ID " + id + " not found.");
+        }
+    }
 
     @Override
     public void showMenu() {
@@ -55,7 +66,8 @@ public  class ExpenseDetails<T> implements IncomeExpensedetails<T>{
             System.out.println("Menu:");
             System.out.println("1. Add Expense");
             System.out.println("2. Display Expense Sources");
-            System.out.println("3. Exit");
+            System.out.println("3. Delete Expense Source");
+            System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
 
@@ -80,15 +92,20 @@ public  class ExpenseDetails<T> implements IncomeExpensedetails<T>{
                     displayIncomeSources();
                     break;
                 case 3:
-                    System.out.println("Exiting...");
+                   System.out.print("Enter the ID of the expense source to delete: ");
+                    int id = scanner.nextInt();
+                    deleteIncome(id);
                     break;
+                case 4:
+                    System.out.println("Exiting...");
+                    break;    
                 default:
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
 
             System.out.println();
-        } while (choice != 3);
+        } while (choice != 4);
     }
 
     private LocalDate parseDate(String dateInput) {
