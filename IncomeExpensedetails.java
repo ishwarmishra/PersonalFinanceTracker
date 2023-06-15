@@ -16,6 +16,8 @@ public interface IncomeExpensedetails<T> {
     void addIncome(T income,double amount, LocalDate date);
     void displayIncomeSources();
     void deleteIncome(int id);
+    void updateIncome(int id, T newIncome, double newAmount, LocalDate newDate);
+    void findIncomeById(int id);
     void showMenu();
 
 }

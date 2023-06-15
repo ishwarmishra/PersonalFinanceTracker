@@ -39,7 +39,7 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
         } else {
             System.out.println("Income Sources:");
             for (Income income : incomeSources) {
-                System.out.println(income.id + "-" +income.source + " - " + income.amount+ "-"+ income.date.format(dateFormatter));
+                System.out.println(income.id + " " +income.source + "  " + income.amount+ " "+ income.date.format(dateFormatter));
                 
 
             }
@@ -56,6 +56,32 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
             System.out.println("Income source with ID " + id + " not found.");
         }
     }
+     @Override
+     public void updateIncome(int id, T newIncome, double newAmount, LocalDate newDate) {
+        Income income = incomeMap.get(id);
+        if (income != null) {
+            income.source = newIncome;
+            income.amount = newAmount;
+            income.date = newDate;
+            System.out.println("Income source with ID " + id + " updated.");
+        } else {
+            System.out.println("Income source with ID " + id + " not found.");
+        }
+    }
+     @Override
+     public void findIncomeById(int id) {
+        Income income = incomeMap.get(id);
+        if (income != null) {
+            System.out.println("Income Source Details:");
+            System.out.println("ID: " + income.id);
+            System.out.println("Source: " + income.source);
+            System.out.println("Amount: " + income.amount);
+            System.out.println("Date: " + income.date.format(dateFormatter));
+        } else {
+            System.out.println("Income source with ID " + id + " not found.");
+        }
+    }
+     
 
     @Override
     public void showMenu() {
@@ -65,7 +91,9 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
             System.out.println("1. Add Income");
             System.out.println("2. Display Income Sources");
             System.out.println("3. Delete Income Source");
-            System.out.println("4. Exit");
+            System.out.println("4. Update Income Source");
+            System.out.println("5. Find Income Source by id");
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
 
@@ -95,6 +123,28 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
                     deleteIncome(id);
                     break;
                 case 4:
+                    System.out.print("Enter the ID of the income source to update: ");
+                    int updateId = scanner.nextInt();
+                    System.out.print("Enter the new income source: ");
+                    scanner.nextLine(); // Consume the newline character
+                    T newIncome = (T)scanner.nextLine();
+                    System.out.print("Enter the new amount: ");
+                    double newAmount = scanner.nextDouble();
+                    System.out.print("Enter the new date (dd/mm/yyyy): ");
+                    String newDateInput = scanner.next();
+                    LocalDate newDate = parseDate(newDateInput);
+                    if (newDate != null) {
+                        updateIncome(updateId, newIncome, newAmount, newDate);
+                    } else {
+                        System.out.println("Invalid date format. Please try again.");
+                    }
+                    break; 
+                case 5:
+                    System.out.print("Enter the ID of the income source to find: ");
+                    int findId = scanner.nextInt();
+                    findIncomeById(findId);
+                    break;
+                case 6:
                     System.out.println("Exiting...");
                     break;    
                 default:
@@ -103,7 +153,7 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
             }
 
             System.out.println();
-        } while (choice != 4);
+        } while (choice != 6);
     }
 
     private LocalDate parseDate(String dateInput) {
