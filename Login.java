@@ -1,6 +1,5 @@
 package pft;
 
-
 import java.util.Scanner;
 
 public class Login {
@@ -14,25 +13,29 @@ public class Login {
 
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
-
-        if (authenticateUser(username, password)) {
-            System.out.println("Login successful! Welcome, " + username + ".");
-            
-            //actions to be performed after successful login
+        boolean loginSuccessful = validateCredentials(username, password);
+        
+        if (loginSuccessful) {
+            // Redirect to Dashboard class
+            Dashboard.showDashboard();        
         } else {
             System.out.println("Invalid username or password. Please try again.");
-            // handling unsuccessful login attempts
+            
         }
       
         
     }
 
     private static boolean authenticateUser(String username, String password) {
-        // implement your authentication logic.
+        
         
         String expectedUsername = "ishwar";
         String expectedPassword = "ishwar123";
 
         return username.equals(expectedUsername) && password.equals(expectedPassword);
+    }
+
+    private static boolean validateCredentials(String username, String password) {
+            return username.equals("admin") && password.equals("password");
     }
 }

@@ -9,7 +9,7 @@ public class ExpenseTrackerCLI {
         
                 
         //create the object for the ExpenseDetails 
-        ExpenseDetails<String> expenseManager=new ExpenseDetails<>();
+        IncomeExpensedetails<String> expenseManager=new ExpenseDetails<>();
      
         expenseManager.showMenu();
         

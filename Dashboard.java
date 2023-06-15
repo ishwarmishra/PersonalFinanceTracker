@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Dashboard {
-    public static void main(String[] args) {
+    public static void showDashboard(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
