@@ -4,53 +4,33 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
+public class IncomeDetails<T> implements IncomeExpensedetails<T> {
 
-
-
-public  class IncomeDetails<T> implements IncomeExpensedetails<T> {
-    
-    private class Income {
-        T source;
-        LocalDate date;
-
-        public Income(T source, LocalDate date) {
-            this.source = source;
-            this.date = date;
-        }
-    }
-    
-    private List<Income>incomeSources;
-    private  Scanner scanner;
+    private List<Income> incomeSources;
+    private Map<Integer, Income>incomeMap;
+    private Scanner scanner;
     private DateTimeFormatter dateFormatter;
+    private int nextId;
 
-
-    
     public IncomeDetails() {
         incomeSources = new ArrayList<>();
+        incomeMap = new HashMap<>();
         scanner = new Scanner(System.in);
         dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        nextId = 1;
     }
-    
+
     @Override
-    public String generateUniqueId() {
-        System.out.println("Enter a unique ID: ");
-        String uniqueId = scanner.nextLine();
-        // You can perform validation or manipulation on the user input if required
-        return uniqueId;
-    }
-    //place holder method for thegeneratedUniqueId
-    public void doSomething() {
-        String uniqueId = generateUniqueId();
-       
-    }
-    
-    @Override
-    public void addIncome(T income,LocalDate date) {
-        Income newIncome = new Income(income, date);
+    public void addIncome(T income,double amount, LocalDate date) {
+        Income newIncome = new Income(income,amount, date,nextId);
         incomeSources.add(newIncome);
+        incomeMap.put(nextId, newIncome);
+        nextId++;
     }
 
     @Override
@@ -59,16 +39,17 @@ public  class IncomeDetails<T> implements IncomeExpensedetails<T> {
             System.out.println("No income sources added.");
         } else {
             System.out.println("Income Sources:");
-            for(Income income: incomeSources){
-                System.out.println(income.source + " - "+ income.date.format(dateFormatter));
+            for (Income income : incomeSources) {
+                System.out.println(income.id + "-" +income.source + " - " + income.amount+ "-"+ income.date.format(dateFormatter));
                 
+
             }
         }
     }
 
     @Override
     public void showMenu() {
-          int choice;
+        int choice;
         do {
             System.out.println("Menu:");
             System.out.println("1. Add Income");
@@ -82,12 +63,14 @@ public  class IncomeDetails<T> implements IncomeExpensedetails<T> {
                     System.out.print("Enter income source: ");
                     scanner.nextLine(); // Consume the newline character
                     T income = (T) scanner.nextLine();
+                    System.out.print("Enter amount: ");
+                    double amount = scanner.nextDouble();
                     System.out.print("Enter date (dd/mm/yyyy): ");
-                    String dateInput = scanner.nextLine();
+                    String dateInput = scanner.next();
                     LocalDate date = parseDate(dateInput);
                     if (date != null) {
-                        addIncome(income, date);
-                        System.out.println("Income source added.");
+                        addIncome(income,amount,date);
+                        System.out.println("Income source added with ID: "+ (nextId-1));
                     } else {
                         System.out.println("Invalid date format. Please try again.");
                     }
@@ -106,22 +89,13 @@ public  class IncomeDetails<T> implements IncomeExpensedetails<T> {
             System.out.println();
         } while (choice != 3);
     }
-    
-        
-    private LocalDate parseDate(String dateInput){
+
+    private LocalDate parseDate(String dateInput) {
         try {
-            return LocalDate.parse(dateInput,dateFormatter);
-        } catch (DateTimeParseException e) {
+            return LocalDate.parse(dateInput, dateFormatter);
+        } catch(Exception e) {
             return null;
         }
 
-    
     }
 }
-    
-       
-
-        
-            
-      
-
