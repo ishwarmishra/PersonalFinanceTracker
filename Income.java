@@ -7,18 +7,15 @@ package pft;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/**
- *
- * @author ishwar
- */
+
 public class Income<T> {
 
     T source;
-    double amount;
+    BigDecimal amount;
     LocalDate date;
     int id;
 
-    public Income(T source, double amount, LocalDate date, int id) {
+    public Income(T source, BigDecimal amount, LocalDate date, int id) {
         this.source = source;
         this.amount = amount;
         this.date = date;
@@ -33,11 +30,11 @@ public class Income<T> {
         this.source = source;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

@@ -1,5 +1,6 @@
 package pft;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -24,8 +25,9 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
         nextId = 1;
     }
 
+    
     @Override
-    public void addIncome(T income, double amount, LocalDate date) {
+    public void addIncome(T income, BigDecimal amount, LocalDate date) {
         Income newIncome = new Income(income, amount, date, nextId);
         incomeSources.add(newIncome);
         incomeMap.put(nextId, newIncome);
@@ -58,7 +60,7 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
     }
 
     @Override
-    public void updateIncome(int id, T newIncome, double newAmount, LocalDate newDate) {
+    public void updateIncome(int id, T newIncome, BigDecimal newAmount, LocalDate newDate) {
         Income income = incomeMap.get(id);
         if (income != null) {
             income.source = newIncome;
@@ -130,10 +132,13 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
             switch (choice) {
                 case 1:
                     System.out.print("Enter income source: ");
-                    scanner.nextLine(); // Consume the newline character
+                    scanner.nextLine();
                     T income = (T) scanner.nextLine();
-                    System.out.print("Enter amount: ");
-                    double amount = scanner.nextDouble();
+                    
+                    System.out.print("Enter the amount: ");
+                    double amountDouble = scanner.nextDouble();
+                    BigDecimal amount = BigDecimal.valueOf(amountDouble);
+                    
                     System.out.print("Enter date (dd/mm/yyyy): ");
                     String dateInput = scanner.next();
                     LocalDate date = parseDate(dateInput);
@@ -156,10 +161,12 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
                     System.out.print("Enter the ID of the income source to update: ");
                     int updateId = scanner.nextInt();
                     System.out.print("Enter the new income source: ");
-                    scanner.nextLine(); // Consume the newline character
+                    scanner.nextLine(); 
                     T newIncome = (T) scanner.nextLine();
+                    
                     System.out.print("Enter the new amount: ");
-                    double newAmount = scanner.nextDouble();
+                    BigDecimal newAmount = scanner.nextDouble();
+                    
                     System.out.print("Enter the new date (dd/mm/yyyy): ");
                     String newDateInput = scanner.next();
                     LocalDate newDate = parseDate(newDateInput);
@@ -203,4 +210,5 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
         }
 
     }
+
 }
