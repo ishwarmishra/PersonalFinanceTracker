@@ -3,39 +3,30 @@ package pft;
 import java.util.Scanner;
 
 public class Login {
+    private static final String USERNAME = "ishwar";
+    private static final String PASSWORD = "ishwar";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Welcome to the Login Page!");
-
-        System.out.print("Enter your username: ");
+        
+        // Get username and password input
+        System.out.print("Username: ");
         String username = scanner.nextLine();
-
-        System.out.print("Enter your password: ");
+        
+        System.out.print("Password: ");
         String password = scanner.nextLine();
-        boolean loginSuccessful = validateCredentials(username, password);
         
-        if (loginSuccessful) {
-            // Redirect to Dashboard class
-            Dashboard.showDashboard();        
+        // Perform validation or authentication
+        if (validateCredentials(username, password)) {
+            System.out.println("Login successful!");
+            Dashboard.showDashboard();
         } else {
-            System.out.println("Invalid username or password. Please try again.");
-            
+            System.out.println("Login failed. Please try again.");
         }
-      
-        
     }
-
-    private static boolean authenticateUser(String username, String password) {
-        
-        
-        String expectedUsername = "ishwar";
-        String expectedPassword = "ishwar123";
-
-        return username.equals(expectedUsername) && password.equals(expectedPassword);
-    }
-
     private static boolean validateCredentials(String username, String password) {
-            return username.equals("admin") && password.equals("password");
+        // Perform validation/authentication logic here
+        return username.equals(USERNAME) && password.equals(PASSWORD);
     }
 }
+

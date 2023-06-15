@@ -32,6 +32,9 @@ public class ExpenseDetails<T> implements IncomeExpensedetails<T> {
         nextId++;
     }
 
+        
+    
+    
     @Override
     public void displayIncomeSources() {
         if (incomeSources.isEmpty()) {
