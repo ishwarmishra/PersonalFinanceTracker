@@ -1,8 +1,9 @@
 package pft.controller;
 
 import java.util.Scanner;
-import pft.model.ExpenseTrackerCLI;
-import pft.model.IncomeTrackerCLI;
+
+import pft.model.IncomeExpenseMain;
+
 
 public class Dashboard {
       public static void showDashboard() {
@@ -11,9 +12,8 @@ public class Dashboard {
         
         while (!exit) {
             System.out.println("==== Personal Finance Tracker ====");
-            System.out.println("1. Income Tracker");
-            System.out.println("2. Expense Tracker");
-            System.out.println("3. Exit");
+            System.out.println("1. IncomeExpenseMenu ");
+            System.out.println("2. Exit");
             System.out.print("Enter your choice: ");
             
             int choice = scanner.nextInt();
@@ -21,12 +21,10 @@ public class Dashboard {
             
             switch (choice) {
                 case 1:
-                    IncomeTrackerCLI.main(null);
+                    IncomeExpenseMain.main(null);
                     break;
+                
                 case 2:
-                    ExpenseTrackerCLI.main(null);
-                    break;
-                case 3:
                     exit = true;
                     break;
                 default:
