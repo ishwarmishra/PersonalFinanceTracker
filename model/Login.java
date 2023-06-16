@@ -1,5 +1,6 @@
-package pft;
+package pft.model;
 
+import pft.controller.Dashboard;
 import java.util.Scanner;
 
 public class Login {

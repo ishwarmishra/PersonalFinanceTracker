@@ -1,5 +1,6 @@
-package pft;
+package pft.model;
 
+import pft.model.Income;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,8 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import pft.model.IncomeExpenseDetails;
 
-public class IncomeExpenseService<T> implements IncomeExpensedetails<T> {
+public class IncomeExpenseService<T> implements IncomeExpenseDetails<T> {
     
     
     private List<Income<T>> incomeSources;

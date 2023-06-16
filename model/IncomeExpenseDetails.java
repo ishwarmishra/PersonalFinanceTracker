@@ -1,4 +1,4 @@
-package pft;
+package pft.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public interface IncomeExpensedetails<T> {
+public interface IncomeExpenseDetails<T> {
 
     void addIncome(T income, BigDecimal amount, LocalDate date);
     void displayIncomeSources();

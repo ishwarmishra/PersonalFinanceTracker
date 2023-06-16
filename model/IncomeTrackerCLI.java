@@ -1,4 +1,4 @@
-package pft;
+package pft.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

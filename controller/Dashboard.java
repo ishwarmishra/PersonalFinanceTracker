@@ -1,6 +1,8 @@
-package pft;
+package pft.controller;
 
 import java.util.Scanner;
+import pft.model.ExpenseTrackerCLI;
+import pft.model.IncomeTrackerCLI;
 
 public class Dashboard {
       public static void showDashboard() {
