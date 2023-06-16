@@ -1,28 +1,22 @@
 package pft.model;
 
-import pft.model.Income;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import pft.model.IncomeExpenseDetails;
 
 public class IncomeExpenseService<T> implements IncomeExpenseDetails<T> {
     
     
     private List<Income<T>> incomeSources;
-    private Map<Integer, Income<T>> incomeMap;
     private Scanner scanner;
     private DateTimeFormatter dateFormatter;
     private int nextId;
 
     public IncomeExpenseService() {
         incomeSources = new ArrayList<>();
-        incomeMap = new HashMap<>();
         scanner = new Scanner(System.in);
         dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         nextId = 1;
@@ -33,7 +27,6 @@ public class IncomeExpenseService<T> implements IncomeExpenseDetails<T> {
     public void addIncome(T income, BigDecimal amount, LocalDate date) {
         Income<T> newIncome = new Income<>(income, amount, date, nextId);
         incomeSources.add(newIncome);
-        incomeMap.put(nextId, newIncome);
         nextId++;
     }
 
@@ -52,69 +45,91 @@ public class IncomeExpenseService<T> implements IncomeExpenseDetails<T> {
 
     @Override
     public void deleteIncome(int id) {
-        Income<T> income = incomeMap.get(id);
-        if (income != null) {
-            incomeSources.remove(income);
-            incomeMap.remove(id);
-            System.out.println("Income source with ID " + id + " deleted.");
-        } else {
-            System.out.println("Income source with ID " + id + " not found.");
+    Income<T> incomeToRemove = null;
+    for (Income<T> income : incomeSources) {
+        if (income.id == id) {
+            incomeToRemove = income;
+            break;
         }
     }
+    if (incomeToRemove != null) {
+        incomeSources.remove(incomeToRemove);
+        System.out.println("Income source with ID " + id + " deleted.");
+    } else {
+        System.out.println("Income source with ID " + id + " not found.");
+    }
+}
 
     @Override
     public void updateIncome(int id, T newIncome, BigDecimal newAmount, LocalDate newDate) {
-        Income<T> income = incomeMap.get(id);
-        if (income != null) {
-            income.source = newIncome;
-            income.amount = newAmount;
-            income.date = newDate;
-            System.out.println("Income source with ID " + id + " updated.");
-        } else {
-            System.out.println("Income source with ID " + id + " not found.");
+    Income<T> incomeToUpdate = null;
+    for (Income<T> income : incomeSources) {
+        if (income.id == id) {
+            incomeToUpdate = income;
+            break;
         }
     }
-
+    if (incomeToUpdate != null) {
+        incomeToUpdate.source = newIncome;
+        incomeToUpdate.amount = newAmount;
+        incomeToUpdate.date = newDate;
+        System.out.println("Income source with ID " + id + " updated.");
+    } else {
+        System.out.println("Income source with ID " + id + " not found.");
+    }
+}
     @Override
     public void findIncomeById(int id) {
-        Income<T> income = incomeMap.get(id);
-        if (income != null) {
-            System.out.println("Income Source Details:");
-            System.out.println("ID: " + income.id);
-            System.out.println("Source: " + income.source);
-            System.out.println("Amount: " + income.amount);
-            System.out.println("Date: " + income.date.format(dateFormatter));
-        } else {
-            System.out.println("Income source with ID " + id + " not found.");
+    Income<T> incomeToFind = null;
+    for (Income<T> income : incomeSources) {
+        if (income.id == id) {
+            incomeToFind = income;
+            break;
         }
     }
+    if (incomeToFind != null) {
+        System.out.println("Income Source Details:");
+        System.out.println("ID: " + incomeToFind.id);
+        System.out.println("Source: " + incomeToFind.source);
+        System.out.println("Amount: " + incomeToFind.amount);
+        System.out.println("Date: " + incomeToFind.date.format(dateFormatter));
+    } else {
+        System.out.println("Income source with ID " + id + " not found.");
+    }
+}
 
     @Override
-    public void findParticularColumnById(int id, String column) {
-        Income<T> income = incomeMap.get(id);
-        if (income != null) {
-            System.out.println("Income Source Details:");
-            switch (column.toLowerCase()) {
-                case "id":
-                    System.out.println("ID: " + income.id);
-                    break;
-                case "source":
-                    System.out.println("Source: " + income.source);
-                    break;
-                case "amount":
-                    System.out.println("Amount: " + income.amount);
-                    break;
-                case "date":
-                    System.out.println("Date: " + income.date.format(dateFormatter));
-                    break;
-                default:
-                    System.out.println("Invalid column. Available columns: id, source, amount, date");
-                    return;
-            }
-        } else {
-            System.out.println("Income source with ID " + id + " not found.");
+public void findParticularColumnById(int id, String column) {
+    Income<T> incomeToFind = null;
+    for (Income<T> income : incomeSources) {
+        if (income.id == id) {
+            incomeToFind = income;
+            break;
         }
     }
+    if (incomeToFind != null) {
+        System.out.println("Income Source Details:");
+        switch (column.toLowerCase()) {
+            case "id":
+                System.out.println("ID: " + incomeToFind.id);
+                break;
+            case "source":
+                System.out.println("Source: " + incomeToFind.source);
+                break;
+            case "amount":
+                System.out.println("Amount: " + incomeToFind.amount);
+                break;
+            case "date":
+                System.out.println("Date: " + incomeToFind.date.format(dateFormatter));
+                break;
+            default:
+                System.out.println("Invalid column. Available columns: id, source, amount, date");
+                return;
+        }
+    } else {
+        System.out.println("Income source with ID " + id + " not found.");
+    }
+}
 
     @Override
     public void showMenu(String i) {
@@ -169,6 +184,7 @@ public class IncomeExpenseService<T> implements IncomeExpenseDetails<T> {
 
                     System.out.print("Enter the new amount: ");
                     BigDecimal newAmount = scanner.nextBigDecimal();
+                    
                     System.out.println("New amount: " + newAmount);
 
                     System.out.print("Enter the new date (dd/mm/yyyy): ");
@@ -293,14 +309,15 @@ public class IncomeExpenseService<T> implements IncomeExpenseDetails<T> {
             System.out.println();
          } while (choice != 7);
       }
+    
+    
         private LocalDate parseDate(String dateInput) {
         try {
             return LocalDate.parse(dateInput, dateFormatter);
         } catch (Exception e) {
             return null;
-        
+        }
 
-    }
 }
 }
 

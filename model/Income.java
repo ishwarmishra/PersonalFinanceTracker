@@ -5,10 +5,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
-public class Income<T> {
+public class Income<T>{
 
     T source;
-    BigDecimal amount;
+     BigDecimal amount;
     LocalDate date;
     int id;
 
@@ -23,8 +23,9 @@ public class Income<T> {
         return source;
     }
 
-    public void setSource(T source) {
+    public T setSource(T source) {
         this.source = source;
+        return source;
     }
 
     public BigDecimal getAmount() {
