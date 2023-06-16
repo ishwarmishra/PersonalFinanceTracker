@@ -169,8 +169,6 @@ public class IncomeExpenseService<T> implements IncomeExpenseDetails<T> {
 
                     System.out.print("Enter the new amount: ");
                     BigDecimal newAmount = scanner.nextBigDecimal();
-                    // Use the newAmount variable in your code as needed
-                    // For example, you can print the value:
                     System.out.println("New amount: " + newAmount);
 
                     System.out.print("Enter the new date (dd/mm/yyyy): ");
@@ -303,7 +301,6 @@ public class IncomeExpenseService<T> implements IncomeExpenseDetails<T> {
         
 
     }
-
 }
 }
 
