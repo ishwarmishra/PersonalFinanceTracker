@@ -9,26 +9,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class IncomeDetails<T> implements IncomeExpensedetails<T> {
-
-    private List<Income> incomeSources;
-    private Map<Integer, Income> incomeMap;
+public class IncomeExpenseService<T> implements IncomeExpensedetails<T> {
+    
+    
+    private List<Income<T>> incomeSources;
+    private Map<Integer, Income<T>> incomeMap;
     private Scanner scanner;
     private DateTimeFormatter dateFormatter;
     private int nextId;
 
-    public IncomeDetails() {
+    public IncomeExpenseService() {
         incomeSources = new ArrayList<>();
         incomeMap = new HashMap<>();
         scanner = new Scanner(System.in);
         dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         nextId = 1;
     }
-
     
-    @Override
+
+   @Override
     public void addIncome(T income, BigDecimal amount, LocalDate date) {
-        Income newIncome = new Income(income, amount, date, nextId);
+        Income<T> newIncome = new Income<>(income, amount, date, nextId);
         incomeSources.add(newIncome);
         incomeMap.put(nextId, newIncome);
         nextId++;
@@ -40,7 +41,7 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
             System.out.println("No income sources added.");
         } else {
             System.out.println("Income Sources:");
-            for (Income income : incomeSources) {
+            for (Income<T> income : incomeSources) {
                 System.out.println(income.id + " " + income.source + "  " + income.amount + " " + income.date.format(dateFormatter));
 
             }
@@ -49,7 +50,7 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
 
     @Override
     public void deleteIncome(int id) {
-        Income income = incomeMap.get(id);
+        Income<T> income = incomeMap.get(id);
         if (income != null) {
             incomeSources.remove(income);
             incomeMap.remove(id);
@@ -61,7 +62,7 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
 
     @Override
     public void updateIncome(int id, T newIncome, BigDecimal newAmount, LocalDate newDate) {
-        Income income = incomeMap.get(id);
+        Income<T> income = incomeMap.get(id);
         if (income != null) {
             income.source = newIncome;
             income.amount = newAmount;
@@ -74,7 +75,7 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
 
     @Override
     public void findIncomeById(int id) {
-        Income income = incomeMap.get(id);
+        Income<T> income = incomeMap.get(id);
         if (income != null) {
             System.out.println("Income Source Details:");
             System.out.println("ID: " + income.id);
@@ -88,7 +89,7 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
 
     @Override
     public void findParticularColumnById(int id, String column) {
-        Income income = incomeMap.get(id);
+        Income<T> income = incomeMap.get(id);
         if (income != null) {
             System.out.println("Income Source Details:");
             switch (column.toLowerCase()) {
@@ -114,9 +115,9 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
     }
 
     @Override
-    public void showMenu() {
+    public void showMenu(String i) {
         int choice;
-        do {
+        if(i=="i"){do{
             System.out.println("Menu:");
             System.out.println("1. Add Income");
             System.out.println("2. Display Income Sources");
@@ -134,11 +135,11 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
                     System.out.print("Enter income source: ");
                     scanner.nextLine();
                     T income = (T) scanner.nextLine();
-                    
+
                     System.out.print("Enter the amount: ");
                     double amountDouble = scanner.nextDouble();
                     BigDecimal amount = BigDecimal.valueOf(amountDouble);
-                    
+
                     System.out.print("Enter date (dd/mm/yyyy): ");
                     String dateInput = scanner.next();
                     LocalDate date = parseDate(dateInput);
@@ -161,12 +162,15 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
                     System.out.print("Enter the ID of the income source to update: ");
                     int updateId = scanner.nextInt();
                     System.out.print("Enter the new income source: ");
-                    scanner.nextLine(); 
+                    scanner.nextLine();
                     T newIncome = (T) scanner.nextLine();
-                    
+
                     System.out.print("Enter the new amount: ");
-                    BigDecimal newAmount = scanner.nextDouble();
-                    
+                    BigDecimal newAmount = scanner.nextBigDecimal();
+                    // Use the newAmount variable in your code as needed
+                    // For example, you can print the value:
+                    System.out.println("New amount: " + newAmount);
+
                     System.out.print("Enter the new date (dd/mm/yyyy): ");
                     String newDateInput = scanner.next();
                     LocalDate newDate = parseDate(newDateInput);
@@ -199,16 +203,108 @@ public class IncomeDetails<T> implements IncomeExpensedetails<T> {
             }
 
             System.out.println();
-        } while (choice != 7);
-    }
+         }while (choice != 7);
+        
+       }
+        else{
+            System.out.println("Menu:");
+            System.out.println("1. Add Expense");
+            System.out.println("2. Display Expense Sources");
+            System.out.println("3. Delete Expense Source");
+            System.out.println("4. Update Expense Source");
+            System.out.println("5. Find Expense Source by id");
+            System.out.println("6. Find particular data of Expense Source by id");
 
-    private LocalDate parseDate(String dateInput) {
+            System.out.println("7. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Expense source: ");
+                    scanner.nextLine();
+                    T income = (T) scanner.nextLine();
+
+                    System.out.print("Enter the amount: ");
+                    double amountDouble = scanner.nextDouble();
+                    BigDecimal amount = BigDecimal.valueOf(amountDouble);
+
+                    System.out.print("Enter date (dd/mm/yyyy): ");
+                    String dateInput = scanner.next();
+                    LocalDate date = parseDate(dateInput);
+                    if (date != null) {
+                        addIncome(income, amount, date);
+                        System.out.println("Income source added with ID: " + (nextId - 1));
+                    } else {
+                        System.out.println("Invalid date format. Please try again.");
+                    }
+                    break;
+                case 2:
+                    displayIncomeSources();
+                    break;
+                case 3:
+                    System.out.print("Enter the ID of the expense source to delete: ");
+                    int id = scanner.nextInt();
+                    deleteIncome(id);
+                    break;
+                case 4:
+                    System.out.print("Enter the ID of the expense source to update: ");
+                    int updateId = scanner.nextInt();
+                    System.out.print("Enter the new expense source: ");
+                    scanner.nextLine();
+                    T newIncome = (T) scanner.nextLine();
+
+                    System.out.print("Enter the new amount: ");
+                    BigDecimal newAmount = scanner.nextBigDecimal();
+                    
+                    System.out.println("New amount: " + newAmount);
+
+                    System.out.print("Enter the new date (dd/mm/yyyy): ");
+                    String newDateInput = scanner.next();
+                    LocalDate newDate = parseDate(newDateInput);
+                    if (newDate != null) {
+                        updateIncome(updateId, newIncome, newAmount, newDate);
+                    } else {
+                        System.out.println("Invalid date format. Please try again.");
+                    }
+                    break;
+                case 5:
+                    System.out.print("Enter the ID of the income source to find: ");
+                    int findId = scanner.nextInt();
+                    findIncomeById(findId);
+                    break;
+                case 6:
+                    System.out.print("Enter the ID of the income source to search: ");
+                    int searchId = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline character
+                    System.out.print("Enter the column to search (id, source, amount, date): ");
+                    String searchColumn = scanner.nextLine();
+                    findParticularColumnById(searchId, searchColumn);
+                    break;
+
+                case 7:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+
+            System.out.println();
+         } while (choice != 7);
+      }
+        private LocalDate parseDate(String dateInput) {
         try {
             return LocalDate.parse(dateInput, dateFormatter);
         } catch (Exception e) {
             return null;
-        }
+        
 
     }
 
 }
+}
+
+    
+
+    

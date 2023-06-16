@@ -17,6 +17,6 @@ public interface IncomeExpensedetails<T> {
     void updateIncome(int id, T newIncome, BigDecimal newAmount, LocalDate newDate);
     void findIncomeById(int id);
     void findParticularColumnById(int id,String column);
-    void showMenu();
+    void showMenu(String i);
 
 }
