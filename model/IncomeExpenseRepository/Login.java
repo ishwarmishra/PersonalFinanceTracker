@@ -1,4 +1,4 @@
-package pft.model;
+package pft.model.IncomeExpenseRepository;
 
 import pft.controller.Dashboard;
 import java.util.Scanner;
